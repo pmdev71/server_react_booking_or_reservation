@@ -31,6 +31,17 @@ app.use('/api/users', usersRoute);
 app.use('/api/hotels', hotelsRoute);
 app.use('/api/rooms', roomsRoute);
 
+app.use((err, _req, res, _next) => {
+  const errorStatus = err.statusCode || 500;
+  const errorMessage = err.message || 'Something went wrong';
+  res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
+});
+
 app.listen(8080, () => {
   connect();
   console.log('Server started on port 8080');
