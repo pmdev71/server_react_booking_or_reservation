@@ -22,7 +22,7 @@ export const verifyToken = async (req, res, next) => {
 //CHECK USER ADMIN OR LOGGED IN OWN ACCOUNT
 export const verifyUser = async (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req?.user?.id === req?.params?.id || req?.user?.isAdmin) {
       next();
     } else {
       return next(
@@ -34,7 +34,7 @@ export const verifyUser = async (req, res, next) => {
 //CHECK USER ADMIN OR NOT
 export const verifyAdmin = async (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.isAdmin) {
+    if (req?.user?.isAdmin) {
       next();
     } else {
       return next(createError(403, 'You are not an admin !'));
